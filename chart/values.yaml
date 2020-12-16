@@ -1,0 +1,19 @@
+api:
+  replicaCount: 1
+  image: 
+    registry: okteto.dev/recipes-api
+    tag: latest
+
+frontend:
+  replicaCount: 1
+  image: 
+    registry: okteto.dev/recipes-frontend 
+    tag: latest
+
+mongodb:
+  auth:
+    enabled: true
+    rootPassword: "Password!1@2root"
+    username: recipes
+    password: "Password!1@2"
+    database: mongodb

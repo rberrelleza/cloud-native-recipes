@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "recipes.fullname" . }}
+  labels:
+    {{- include "recipes.labels" . | nindent 4 }}
+  annotations:
+    dev.okteto.com/generate-host: "true"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /api
+            backend:
+              serviceName: {{ .Release.Name }}-api
+              servicePort: 8080
+          - path: /
+            backend:
+              serviceName: {{ .Release.Name }}-frontend
+              servicePort: 8080
