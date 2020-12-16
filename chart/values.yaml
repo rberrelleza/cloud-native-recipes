@@ -17,3 +17,5 @@ mongodb:
     username: recipes
     password: "Password!1@2"
     database: mongodb
+  persistence:
+    size: 1Gi
