@@ -18,9 +18,13 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       terminationGracePeriodSeconds: 0
-      containers:
-        - name: {{ .Release.Name }}-api
+      initContainers:
+        - name: {{ .Release.Name }}-api-init
           image: {{ .Values.api.image.registry }}:{{ .Values.api.image.tag }}
+          command: 
+          - node
+          args:
+          - load.js
           env:
             - name: MONGODB_PASSWORD
               valueFrom:
