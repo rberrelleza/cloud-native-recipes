@@ -11,6 +11,7 @@
     "nodemon": "^2.0.6"
   },
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "debug": "node --inspect-brk=0.0.0.0:9229 server.js"
   }
 }
