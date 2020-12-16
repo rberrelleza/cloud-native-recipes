@@ -1,7 +1,0 @@
-name: recipes-api
-command: bash
-sync:
-- .:/usr/src/app
-forward:
-- 9229:9229
-- 27017:mongodb:27017
