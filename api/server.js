@@ -60,7 +60,7 @@ function startWithRetry() {
       });
 
       app.post("/api/recipes/:id/up", (req, res, next) => {
-        const filter = { id: req.params.id };
+        const filter = { _id: req.params.id };
         const options = { upsert: false };
         const updateDoc = {$inc: {upVotes: 1}};
         console.log(`POST /api/recipes/${req.params.id}/up`)
@@ -74,35 +74,19 @@ function startWithRetry() {
 
           if (!doc.value){
             console.log(`POST /api/recipes/${req.params.id}/up not found`)
-            res.status(404);
+            res.status(404).jsonp({});
             return;
           }
+
+          console.log(doc.value);
           res.jsonp(doc.value);
           
         });
       });
 
       app.post("/api/recipes/:id/down", (req, res, next) => {
-        console.log(`POST /api/recipes/${req.params.id}/down`)
-        const filter = { id: req.params.id };
-        const options = { upsert: false };
-        const updateDoc = {$inc: {downVotes: 1}};
-
-        db.collection('recipes').findOneAndUpdate(filter, updateDoc, options, (err, doc) => {
-          if (err){
-            console.log(`failed to update recipe: ${err}`)
-            res.status(500);
-            return;
-          }
-
-          if (!doc.value){
-            console.log(`POST /api/recipes/${req.params.id}/down not found`)
-            res.status(404);
-            return;
-          }
-          res.jsonp(doc.value);
-          
-        });
+        // don't forget to implement before shipping!
+        res.status(500).jsonp({});
       });
 
       

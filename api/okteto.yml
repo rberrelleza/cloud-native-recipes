@@ -1,9 +1,7 @@
 name: recipes-api
-image: okteto/node:12
 command: bash
 sync:
 - .:/usr/src/app
-- ../common:/usr/src/app/common
 forward:
 - 9229:9229
-- 8080:8080
+- 27017:mongodb:27017

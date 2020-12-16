@@ -7,12 +7,12 @@ var insert = function(collection, data, resolve, reject) {
   d.forEach((doc) => {
     doc._id = doc.id;
   });
-  collection.insertMany(d, (err, r) => {
+  collection.insertMany(d,{ordered: false},  (err, r) => {
     if (err) {
       if (err.code != 11000) {
         return reject(err);
       }
-    }
+    } 
 
     resolve();
   });
@@ -33,6 +33,9 @@ function load() {
 
     var promises = [];
     const db = client.db(process.env.MONGODB_DATABASE);
+
+    
+
     promises.push(new Promise((resolve, reject)=>{
       insert(db.collection('recipes'), "./data/recipes.json", resolve, reject);
     }));
