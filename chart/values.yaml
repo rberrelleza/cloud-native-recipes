@@ -1,13 +1,13 @@
 api:
   replicaCount: 1
   image: 
-    registry: okteto.dev/recipes-api
+    registry: ramiro/recipes-api
     tag: latest
 
 frontend:
   replicaCount: 1
   image: 
-    registry: okteto.dev/recipes-frontend 
+    registry: ramiro/recipes-frontend 
     tag: latest
 
 mongodb:
