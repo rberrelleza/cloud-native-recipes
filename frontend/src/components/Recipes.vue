@@ -14,7 +14,7 @@
         :key="recipe.id"
         class="gallery-panel"
       >
-        <p>{{ recipe.title }}</p>
+        <p><b>{{ recipe.title }}</b></p>
         <img :src="`${recipe.image}`" class="recipe"/>
         <div>
           <span class="icon is-small">

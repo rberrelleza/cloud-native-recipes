@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"sort"
+	"strings"
 
 	"github.com/avast/retry-go"
 	multierror "github.com/hashicorp/go-multierror"
@@ -81,6 +83,11 @@ func (d *Database) GetRecipes(ctx context.Context) ([]Recipe, error) {
 		return nil, fmt.Errorf("can't decode recipes: %w", err)
 	}
 
+	sort.Slice(recipes, func(i, j int) bool {
+
+		return strings.Compare(recipes[i].Title, recipes[j].Title) == -1
+	})
+
 	return recipes, nil
 }
 
@@ -136,11 +143,12 @@ func (d *Database) DownVoteRecipe(ctx context.Context, recipeID string) (*Recipe
 
 func (d *Database) Load(ctx context.Context, recipes []Recipe) error {
 	var result error
-
+	opts := options.Update().SetUpsert(true)
 	for _, r := range recipes {
 		filter := bson.M{"id": r.ID}
 		update := bson.M{"$set": r}
-		if _, err := d.collection.UpdateOne(ctx, filter, update); err != nil {
+		_, err := d.collection.UpdateOne(ctx, filter, update, opts)
+		if err != nil {
 			result = multierror.Append(result, err)
 		}
 	}

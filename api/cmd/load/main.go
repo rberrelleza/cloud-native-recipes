@@ -16,8 +16,6 @@ import (
 var recipesJSON []byte
 
 func main() {
-	log.Println("loading data")
-
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
@@ -36,6 +34,8 @@ func main() {
 	if err := json.Unmarshal(recipesJSON, &recipes); err != nil {
 		log.Fatal(err)
 	}
+
+	log.Printf("loading %d recipes into the DB", len(recipes))
 
 	if err := db.Load(ctx, recipes); err != nil {
 		log.Fatalf("error: %s", err)
