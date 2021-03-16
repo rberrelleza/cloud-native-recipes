@@ -21,10 +21,7 @@ spec:
       initContainers:
         - name: {{ .Release.Name }}-api-init
           image: {{ .Values.api.image.registry }}:{{ .Values.api.image.tag }}
-          command: 
-          - node
-          args:
-          - load.js
+          command: ["/app/bin/loader"]
           env:
             - name: MONGODB_PASSWORD
               valueFrom:
