@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/farolito.jpg">
+    <img src="./assets/cloud-native-recipes.png">
     <router-view/>
   </div>
 </template>
