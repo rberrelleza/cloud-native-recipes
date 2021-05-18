@@ -1,6 +1,6 @@
 # Cloud Native Recipes
 
-[![Develop on Okteto](https://okteto.com/develop-okteto.svg)](https://okteto.ramiro.dev.okteto.net/deploy)
+[![Develop on Okteto](https://okteto.com/develop-okteto.svg)](https://cloud.okteto.com/deploy)
 
 This example shows how to use [okteto](https://github.com/okteto/okteto) to develop a micro-services based application in Okteto Cloud.
 
