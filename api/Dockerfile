@@ -11,11 +11,10 @@ COPY go.sum .
 RUN go mod download
 
 COPY . .
-RUN --mount=type=cache,target=/root/.cache/go-build CGO_ENABLED=0 GOOS=linux go build -v -o api cmd/api/main.go
+RUN --mount=type=cache,target=/root/.cache/go-build CGO_ENABLED=0 GOOS=linux go build -v -o api main.go
 
 FROM scratch
 COPY --from=alpine /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /usr/src/app/api /app/bin/api
-COPY --from=builder /usr/src/app/loader /app/bin/loader
 EXPOSE 8080
 ENTRYPOINT [ "/app/bin/api" ]
