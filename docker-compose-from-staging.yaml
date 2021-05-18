@@ -31,9 +31,9 @@ volumes:
     driver_opts:
       size: 1Gi
       class: okteto-snapshot-sc
-    annotations:
+    labels:
       dev.okteto.com/from-snapshot-name: recipes-data
-      dev.okteto.com/from-snapshot-namespace: ramiro
+      dev.okteto.com/from-snapshot-namespace: staging
     
 endpoints:
   - path: /api

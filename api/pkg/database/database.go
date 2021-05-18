@@ -54,6 +54,7 @@ func Connect(ctx context.Context, uri, database, username, password string) (*Da
 
 			return nil
 		},
+		retry.Attempts(3),
 		retry.OnRetry(func(n uint, err error) {
 			log.Printf("failed to connect to mongo #%d: %s\n", n, err)
 		}),
