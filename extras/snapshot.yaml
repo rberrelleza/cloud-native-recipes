@@ -2,6 +2,7 @@ apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshot
 metadata:
   name: recipes-data
+  namespace: staging
 spec:
   volumeSnapshotClassName: okteto-snapshot-class
   source:
