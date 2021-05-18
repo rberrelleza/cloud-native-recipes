@@ -49,6 +49,7 @@ func main() {
 	router.HandleFunc("/api/healthz", srv.healthcheckHandler)
 	router.HandleFunc("/api/recipes", srv.recipesHandler).Methods("GET")
 	router.HandleFunc("/api/recipes", srv.updateRecipeHandler).Methods("POST")
+	router.HandleFunc("/api/recipes/bulk", srv.updateRecipesHandler).Methods("POST")
 	router.HandleFunc("/api/recipes/{id}", srv.recipeHandler)
 	router.HandleFunc("/api/recipes/{id}/up", srv.upvoteHandler)
 	router.HandleFunc("/api/recipes/{id}/down", srv.downvoteHandler)
@@ -151,6 +152,29 @@ func (s *Server) updateRecipeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respondWithJSON(w, http.StatusOK, addedRecipe)
+}
+
+func (s *Server) updateRecipesHandler(w http.ResponseWriter, r *http.Request) {
+	var recipes []database.Recipe
+	if err := json.NewDecoder(r.Body).Decode(&recipes); err != nil {
+		fmt.Printf("error: %s", err)
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	for _, r := range recipes {
+		if r.Title == "" || r.Image == "" {
+			fmt.Printf("missing values: %+v", r)
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+	}
+
+	if err := s.db.Load(r.Context(), recipes); err != nil {
+		fmt.Printf("error: %s", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 }
 
 func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {

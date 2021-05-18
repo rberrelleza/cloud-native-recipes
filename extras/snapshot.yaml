@@ -1,8 +1,8 @@
-apiVersion: snapshot.storage.k8s.io/v1
+apiVersion: snapshot.storage.k8s.io/v1beta1
 kind: VolumeSnapshot
 metadata:
   name: recipes-data
 spec:
   volumeSnapshotClassName: okteto-snapshot-class
   source:
-    persistentVolumeClaimName: recipes-db 
+    persistentVolumeClaimName: mongodb
