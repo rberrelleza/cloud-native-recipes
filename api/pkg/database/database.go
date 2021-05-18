@@ -144,7 +144,10 @@ func (d *Database) DownVoteRecipe(ctx context.Context, recipeID string) (*Recipe
 
 func (d *Database) AddRecipe(ctx context.Context, recipe Recipe) (*Recipe, error) {
 
-	recipe.ID = uuid.New().String()
+	if recipe.ID == "" {
+		recipe.ID = uuid.New().String()
+	}
+
 	_, err := d.collection.InsertOne(ctx, recipe)
 	if err != nil {
 		return nil, fmt.Errorf("can't insert recipe: %s", err)

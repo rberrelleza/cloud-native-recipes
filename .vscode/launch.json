@@ -8,7 +8,9 @@
             "mode": "remote",
             "remotePath": "/usr/src/app",
             "port": 2345,
-            "host": "127.0.0.1"
+            "host": "127.0.0.1",
+            "showLog": true,
+            "trace": "verbose"
         }
     ]
 }

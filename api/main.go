@@ -125,6 +125,7 @@ func (s *Server) upvoteHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) downvoteHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("not implemented!")
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
