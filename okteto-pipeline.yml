@@ -1,4 +1,0 @@
-deploy:
-- okteto build -t okteto.dev/recipes-frontend:${OKTETO_GIT_COMMIT} frontend
-- okteto build -t okteto.dev/recipes-api:${OKTETO_GIT_COMMIT} api
-- helm upgrade --install recipes chart --set api.image.registry=okteto.dev/recipes-api --set api.image.tag=${OKTETO_GIT_COMMIT} --set frontend.image.registry=okteto.dev/recipes-frontend --set frontend.image.tag=${OKTETO_GIT_COMMIT} 

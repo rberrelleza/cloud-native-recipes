@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/avast/retry-go"
+	"github.com/google/uuid"
 	multierror "github.com/hashicorp/go-multierror"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -139,6 +140,18 @@ func (d *Database) DownVoteRecipe(ctx context.Context, recipeID string) (*Recipe
 	// hack to prevent querying again
 	recipe.DownVotes++
 	return &recipe, nil
+}
+
+func (d *Database) AddRecipe(ctx context.Context, recipe Recipe) (*Recipe, error) {
+
+	recipe.ID = uuid.New().String()
+	_, err := d.collection.InsertOne(ctx, recipe)
+	if err != nil {
+		return nil, fmt.Errorf("can't insert recipe: %s", err)
+	}
+
+	return d.GetRecipe(ctx, recipe.ID)
+
 }
 
 func (d *Database) Load(ctx context.Context, recipes []Recipe) error {
