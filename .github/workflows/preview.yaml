@@ -21,17 +21,17 @@ jobs:
     - name: Create namespace
       uses: okteto/create-namespace@master
       with:
-        namespace: pr-${{ github.event.number }}-ramiro
+        namespace: pr-${{ github.event.number }}-rberrelleza
 
     - name: Deploy Application
       uses: okteto/pipeline@master
       with:
-        namespace: pr-${{ github.event.number }}-ramiro
-        manifest: manifests
+        namespace: pr-${{ github.event.number }}-rberrelleza
+        timeout: 10m
 
     - name: comment PR
       uses: okteto/notify-pr@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        msg: "Preview environment available at https://recipes-pr-${{ github.event.number }}-ramiro.dev.okteto.net"
+        message: "Preview environment available at https://recipes-pr-${{ github.event.number }}-rberrelleza.cloud.okteto.net"
