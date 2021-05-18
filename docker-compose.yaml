@@ -30,7 +30,6 @@ volumes:
   mongodb:
     driver_opts:
       size: 1Gi
-      class: okteto-snapshot-sc
     
 endpoints:
   - path: /api
