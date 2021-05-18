@@ -7,6 +7,7 @@ on:
 jobs:
   preview:
     runs-on: ubuntu-latest
+    environment: previews
     steps:
     - name: checkout
       uses: actions/checkout@master
