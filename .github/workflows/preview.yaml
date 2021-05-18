@@ -1,0 +1,36 @@
+# file: .github/workflows/preview.yaml
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@master
+
+    - name: Login
+      uses: okteto/login@master
+      with:
+        token: ${{ secrets.OKTETO_TOKEN }}
+        url: ${{ secrets.OKTETO_URL }}
+
+    - name: Create namespace
+      uses: okteto/create-namespace@master
+      with:
+        namespace: pr-${{ github.event.number }}-ramiro
+
+    - name: Deploy Application
+      uses: okteto/pipeline@master
+      with:
+        namespace: pr-${{ github.event.number }}-ramiro
+        manifest: manifests
+
+    - name: comment PR
+      uses: okteto/notify-pr@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        msg: "Preview environment available at https://recipes-pr-${{ github.event.number }}-ramiro.dev.okteto.net"
