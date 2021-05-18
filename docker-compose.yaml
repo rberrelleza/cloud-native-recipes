@@ -7,6 +7,9 @@ services:
       - MONGODB_USERNAME=okteto
       - MONGODB_PASSWORD=password123
       - MONGODB_DATABASE=recipes
+    volumes:
+      - mongodb:/bitnami/mongodb 
+      
     ports: 
       - '27017:27017'
   frontend:
@@ -26,6 +29,12 @@ services:
       - mongodb
     ports:
       - 8080:8080
+
+volumes:
+  mongodb:
+    driver_opts:
+      size: 1Gi
+    
 endpoints:
   - path: /api
     service: api
